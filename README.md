@@ -97,7 +97,7 @@ Java 개발자 과정 SpringBoot 리포지토리
 
 - 실행방법
     - 코드작성
-    - Spring Boot Dashboard > Apps > 앱 실행 
+    - Spring Boot Dashboard > Apps > 앱 또는 Ctrl + F5
 
 - 기초문법
     - [JAVA기초문법](./JAVA_BASIC.md)
