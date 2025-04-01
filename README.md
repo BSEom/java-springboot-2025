@@ -9,7 +9,7 @@ Java 개발자 과정 SpringBoot 리포지토리
     - 서버(백엔드) - 사용자의 요청을 받아서 DB에서 데이터를 가져와 처리하고, 사용자에세 **응답**하는 파트
     - 데이터베이스 - 가장 중요한 데이터가 저장되어 있는 파트
 - 웹 개념
-    - **Request(요청)에 대한 Response(응답)**
+    - (인터넷에서) 사용자 **Request(요청)에 대한 Response(응답)**
 
 ### Spring Boot 개요
 - Java - 컴퓨팅 세상 모든곳에서 사용될 수 있는 언어가 되고자 개발됨
@@ -21,6 +21,7 @@ Java 개발자 과정 SpringBoot 리포지토리
     4. JSP(Java Server Page) - 웹페이지코드(HTML)에 자바소스를 포함시켜서 개발할 수 있는 Java 웹기술
         - 확장자가 .jsp / 스파게티 코드
     5. Spring - Java 웹개발에 전성기. 웹페이지와 자바영역 분리.
+        - 대한민국 전자정부 웹프레임워크 기반
         - 설정이 복잡
     6. Spring Boot - Spring의 단점을 최소화. 설정을 간결화
 
@@ -31,6 +32,7 @@ Java 개발자 과정 SpringBoot 리포지토리
     - 서포트하는 기능 다수 존재(개발을 쉽게 도와줌)
     - 테스트용 JUnit, 로그용 Log4J2 모두 포함(설치 필요없음)
     - 프론트엔드를 다양하게 지원. JSP, **Thymeleaf**, Mustache 등
+    - React, Vue.js 등의 자바스크립트 프론트엔드와 연계해서 풀스택 개발 가능
     - MVC(Model View Controller)로 영역을 분리. 각 부분별로 따로 개발 
 
 - MVC
@@ -95,7 +97,7 @@ Java 개발자 과정 SpringBoot 리포지토리
 
 - 실행방법
     - 코드작성
-    - Spring Boot Dashboard > Apps > 앱 실행
+    - Spring Boot Dashboard > Apps > 앱 실행 
 
 - 기초문법
     - [JAVA기초문법](./JAVA_BASIC.md)
