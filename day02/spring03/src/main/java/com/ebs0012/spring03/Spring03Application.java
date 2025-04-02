@@ -25,7 +25,8 @@ public class Spring03Application {
 		Car mycar = new Car();
 		mycar.name = "아이오닉";
 		mycar.year = 2018;
-
+		
+		// 메서드 오버로딩 사용
 		mycar.printCarName();
 		mycar.printCarName("흰색");
 
