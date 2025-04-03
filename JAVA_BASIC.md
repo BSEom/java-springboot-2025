@@ -399,3 +399,33 @@
         예외발생 유무와 상관없이 항상 처리할 코드블럭;
     }
     ```
+
+- 예외클래스 : ArithmeticException, ArrayIndexOutOfBoundsException, NullPointerException
+- 모든 예외클래스는 Exception 클래스를 상속받아서 생성
+- 단순히 Exception 클래스로 예외처리해도 무방
+
+##### 예외던지기
+- 예외를 직접 처리하지않고 상위 클래스나 메서드에게 처리를 인가
+
+    ```java
+    리턴값 메서드명(인자...) throws Exception {
+        예외가 발생할 코드블럭;
+    }
+
+    ...
+    try {
+        호출메서드(인자);
+    } catch (Exception e) {
+        예외처리
+    }
+    ```
+
+#### 객체지향 특징
+- 추가로 학습할 내용
+- 다형성, 상속, 캡슐화, 추상화
+
+#### 문자열, 시간타입 핸들링
+- String
+    - 컴퓨터 -> 숫자, 사람 -> 문자
+    
+
