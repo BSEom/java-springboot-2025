@@ -6,6 +6,6 @@ public class Dog extends Animal {
     // 부모의 메서드 오버라이딩
     @Override
     void cry() {
-        System.out.println(super.name + "가 웁니다. 멍멍!!");
+        System.out.println(super.getName() + "가 웁니다. 멍멍!!");
     }
 }
