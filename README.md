@@ -152,7 +152,11 @@ Java 개발자 과정 SpringBoot 리포지토리
 
 ## 4일차
 - 기초문법 마무리
+    - [JAVA기초문법](./JAVA_BASIC.md)
+    - 제네릭, 컬렉션 프레임워크, 입출력, 람다식, 스트림API
+
 - Spring Boot 시작
+- Gradle 오류 해결방법
 
 ## 5일차
 
