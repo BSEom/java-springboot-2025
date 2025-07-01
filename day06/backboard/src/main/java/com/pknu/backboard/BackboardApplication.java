@@ -8,6 +8,7 @@ public class BackboardApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackboardApplication.class, args);
+		System.out.println("새로고침 테스트");
 	}
 
 }

@@ -1,15 +1,14 @@
 package com.pknu.backboard.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+// Java에서 동일한 패키지에서 많이 추가되면 *로 생략 가능
+import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,5 +33,9 @@ public class Board {
 
     @LastModifiedDate
     private LocalDateTime modifyDate; // 게시글 수정일
+
+    // ERD 1:N을 만드는 법
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<Reply> replyList;
 
 }

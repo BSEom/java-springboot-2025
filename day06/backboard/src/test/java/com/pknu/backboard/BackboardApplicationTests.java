@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.border.Border;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -91,5 +89,18 @@ class BackboardApplicationTests {
 		Board board = opBoard.get();
 		this.boardRepository.delete(board);
 		assertEquals(3, boardRepository.count()); // 한건 지워서 3건 남음
+	}
+
+	@Test // 수정 테스트
+	void testUpdateOne() {
+		Optional<Board> opBoard = this.boardRepository.findById(1L); // 1번 보드데이터 가져오기
+		assertTrue(opBoard.isPresent()); // 가져온 데이터가 있는지 여부 체크
+
+		Board board = opBoard.get(); // Optional<Board>가 NULL이면 get() 할 수 없음
+		board.setContent("내용이 테스트에서 변경되었습니다!!!");
+
+		this.boardRepository.save(board);
+
+		// 테스트내용 그대로 JPA 코딩시 사용가능
 	}
 }

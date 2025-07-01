@@ -17,6 +17,11 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+
 }
 
 repositories {
@@ -30,6 +35,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// Thymeleaf layout 의존성 추가. 250701. 신규추가. ebs.
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
 	// 테스트용 의존성
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -46,3 +54,4 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
