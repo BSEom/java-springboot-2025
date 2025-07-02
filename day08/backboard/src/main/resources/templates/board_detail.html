@@ -5,7 +5,7 @@
       <div class="col">
         <!-- 게시판 상세글 -->
         <!-- <h2
-              class="border-botton py-2 text-primary"
+              class="border-bottom py-2 text-primary"
               th:text="${board.title}"
             ></h2> -->
         <div class="card my-3 shadow-sm">
@@ -56,9 +56,13 @@
 
     <form
       th:action="@{|/reply/create/${board.bno}|}"
+      th:object="${replyForm}"
       method="post"
       class="my-3"
     >
+      <!-- 입력검증영역 / 템플릿화 -->
+      <div th:replace="~{valid_error :: errorFragment}"></div>
+      <!-- 댓글내용영역 -->
       <textarea
         name="content"
         id="content"

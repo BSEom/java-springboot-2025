@@ -17,10 +17,10 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
-	developmentOnly
-    runtimeClasspath {
-        extendsFrom developmentOnly
-    }
+	// developmentOnly
+    // runtimeClasspath {
+    //     extendsFrom developmentOnly
+    // }
 
 }
 
@@ -35,6 +35,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// 추가 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 	// Thymeleaf layout 의존성 추가. 250701. 신규추가. ebs.
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'

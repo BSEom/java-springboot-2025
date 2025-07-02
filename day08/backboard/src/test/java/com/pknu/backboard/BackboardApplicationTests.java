@@ -26,7 +26,7 @@ class BackboardApplicationTests {
 	void contextLoads() {
 	}
 
-	@Test
+	@Test // INSERT 테스트
 	void testInsertJpa() {
 		Board board1 = new Board();
 		board1.setTitle("첫번째 게시글입니다."); // @Setter에서 자동 생성해주는 메서드
@@ -41,6 +41,18 @@ class BackboardApplicationTests {
 		this.boardRepository.save(board1); // INSERT 진행
 		this.boardRepository.save(board2); // INSERT 진행
 
+	}
+
+	@Test // INSERT INTO 200개만
+	void testInsertDummyJpa() {
+		for (int i = 0; i < 200; i++) {
+			Board board = new Board();
+			board.setTitle(String.format("테스트 더미데이터입니다. % 03d", i));
+			board.setContent("특별한 내용은 없습니다.");
+			board.setCreateDate(LocalDateTime.now());
+
+			this.boardRepository.save(board);
+		}
 	}
 
 	@Test // SELECT * 테스트

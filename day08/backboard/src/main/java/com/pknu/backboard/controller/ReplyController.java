@@ -3,13 +3,15 @@ package com.pknu.backboard.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pknu.backboard.entity.Board;
 import com.pknu.backboard.service.BoardService;
 import com.pknu.backboard.service.ReplyService;
+import com.pknu.backboard.validation.ReplyForm;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -30,10 +32,16 @@ public class ReplyController {
 
     @PostMapping("/create/{bno}")
     public String setReply(Model model, @PathVariable("bno") Long bno,
-            @RequestParam(value = "content") String content) {
+            @Valid ReplyForm replyForm, BindingResult bindingResult) {
 
         Board board = this.boardService.getBoardOne(bno);
-        this.replyService.setReply(board, content);
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("board", board);
+            return "board_detail";
+        }
+
+        this.replyService.setReply(board, replyForm.getContent());
 
         return String.format("redirect:/board/detail/%s", bno);
     }

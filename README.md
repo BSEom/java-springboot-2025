@@ -530,8 +530,9 @@ Java 개발자 과정 SpringBoot 리포지토리
       - @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE) : 1대다 ERD 관계로 부모클래스(테이블)에 작성하는 부분
       - @ManyToOne : 다대1 ERD 관계로 자식클래스에 작성하는 부분
       - @Service : 서비스 모듈을 지칭
-      - @RequiredArgsConstructor : 생성자를 만들어줌. 파라미터가 존재하는 생성자를 자동으로 생성(Lombok)
-      - @NoArgsConstructor : 파라미터 없는 빈생성자를 자동으로 생성(Lombok)
+      - @RequiredArgsConstructor : final등의 멤버변수를 파라미터로 생성자를 만들어주는 것(Lombok)
+      - @AllArgsConstructor: 클래스 멤버변수를 사용해서 생성자를 만들어주는 것(Lombok)
+      - @NoArgsConstructor : 파라미터(클래스 멤버변수) 없는 빈생성자를 자동으로 생성(Lombok)
 
    4. ReplyRepository 인터페이스 작성
 
@@ -564,6 +565,7 @@ Java 개발자 과정 SpringBoot 리포지토리
    - ${} : 변수 표현식. 변수에 들어있는 값을 화면에 표시하는 기능. Model에 들어있는 데이터를 화면에 표시
    - @{} : URL링크 표현식. 정적인 링크 또는 라우팅되는 경로를 생성하는 기능
    - #{} : 메시지 표현식
+   - \*{} : 선택변수 표현식.
    - thymeleaf 속성에만 사용가능 : th:text, th:href ...
 
 4. 웹페이지 디자인
@@ -588,7 +590,74 @@ Java 개발자 과정 SpringBoot 리포지토리
 
    2. 레이아웃 템플릿 페이지 작성
    3. board_list.html 에 적용
-  
+
       https://github.com/user-attachments/assets/3d13b9db-f82f-4eeb-bcb8-ecee3f8b9723
 
+## 8일차
 
+### 스프링부트 Backboard 프로젝트 (계속)
+
+1. DB연동 개발
+
+   1. 게시글 등록 기능
+   2. Spring Boot Validation 기능 추가: 입력 검증
+
+   ```gradle
+   // 추가 의존성
+     implementation 'org.springframework.boot:spring-boot-starter-validation'
+   ```
+
+   - Annotation으로 검증 수행
+     - @Size, @NotNull, @NotEmpty, @Past(과거날짜만 가능), @Future(미래날짜만)
+     - @FutureOrPresent(미래 또는 오늘날짜만), @Pattern(정규식패턴)
+
+   3. 입력검증 클래스, BoardForm.java 생성
+   4. BoardForm 객체를 컨트롤러에 전달
+   5. board_create.html에 입력검증 태그, 속성 등 추가
+
+      - GetMethod, Postmethod에 BoardForm 파라미터를 추가!
+
+   6. board_detail.html에 댓글 입력 검증 태그 추가
+
+      - ReplyController 의 PostMapping 메서드에 ReplyFrom을 파라미터로 추가
+      - BoardController의 GetMapping 메서드에 ReplyForm을 @Vaild 파라미터로 추가
+
+   7. 검증영역 태그를 valid_error.html 템플릿 생성
+
+2. Bootstrap 템플릿 사이트
+
+   - https://startbootstrap.com/
+   - https://bootstrapmade.com/bootstrap-5-templates/
+   - https://mdbootstrap.com/freebies/
+   - https://bootstrapmade.com/
+   - https://www.youtube.com/@codehal (No Bootstrap)
+
+3. Bootstrap Navigation 구현
+
+   - templates/layout.html 네비게이션 태그 작성
+
+4. Paging : 대량 데이터 로드시 속도 개선
+
+   - Dummy Data 생성 : Unit 테스트로 대략 200건 입력
+   - Page, Pageable 인터페이스
+
+     ```java
+     import org.springframework.data.domain.Page;
+     import org.springframework.data.domain.Pageable;
+     ```
+
+   - BoardRepository 인터페이스에 페이징용 findAll() 재정의
+   - BoardService 클래스에 페이징용 getBoardList() 오버로딩 작성
+   - BoardController 클래스에 getList()에 페이징 파라미터 추가
+   - board_list.html에 페이징 컨트롤 추가
+
+       <img src="./image/sb0015.png" width="600">
+
+   - 페이징번호가 모두 표시되는 문제 발생
+
+## 9일차
+
+### 스프링부트 Backboard 프로젝트(계속)
+
+1. Paging 구현 계속
+   1.

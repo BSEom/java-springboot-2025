@@ -8,14 +8,33 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 // Java에서 동일한 패키지에서 많이 추가되면 *로 생략 가능
 import jakarta.persistence.*;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter // 롬복으로 Getter/Setter 자동화
 @Entity // JPA 테이블 매핑 선언
+@AllArgsConstructor
+@NoArgsConstructor
 public class Board {
+
+    // @AllArgsConstructor 와 동일
+    // public Board(Long bno, String title, String content, LocalDateTime
+    // createDate, LocalDateTime modifyDate,
+    // List<Reply> replyList) {
+    // this.bno = bno;
+    // this.title = title;
+    // this.content = content;
+    // this.createDate = createDate;
+    // this.modifyDate = modifyDate;
+    // this.replyList = replyList;
+    // }
+
+    // @NoArgsConstructor 와 동일
+    // public Board() {
+    // }
 
     @Id // PK
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
