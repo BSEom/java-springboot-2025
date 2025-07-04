@@ -869,6 +869,12 @@ Java 개발자 과정 SpringBoot 리포지토리
       3. BoardController에 게시글 수정 GetMapping 메서드 추가
       4. board_create.html th:action을 삭제, 등록과 수정을 동시에 처리할 수 있는 hidden태그를 작성
       5. BoardController에 수정 PostMapping 메서드 추가
+     
+  
+
+https://github.com/user-attachments/assets/0dad8dbc-7e27-4662-bbea-1ec6dac33222
+
+
 
 ## 11일차
 
