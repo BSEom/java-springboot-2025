@@ -869,17 +869,76 @@ Java 개발자 과정 SpringBoot 리포지토리
       3. BoardController에 게시글 수정 GetMapping 메서드 추가
       4. board_create.html th:action을 삭제, 등록과 수정을 동시에 처리할 수 있는 hidden태그를 작성
       5. BoardController에 수정 PostMapping 메서드 추가
-     
-  
 
 https://github.com/user-attachments/assets/0dad8dbc-7e27-4662-bbea-1ec6dac33222
-
-
 
 ## 11일차
 
 ### 스프링부트 Backboard 프로젝트 (계속)
 
-5. DB 테이블 연동 작업 (계속)
+1. VS Code 재설치 시 삭제해야할 폴더
+
+   - C:/Users/계정/.vscode : 플러그인 등 구성
+   - C:/Users/계정/AppData/Roaming/code/ : 전체설정, 백업, 캐시 등 가장 큰 폴더
+   - VS Code 재설치
+
+2. DB 테이블 연동 작업 (계속)
+
    1. Board 게시글 삭제 추가
-      1. ...
+      1. board_detail.html 수정일자 표시
+      2. Board 게시글 삭제 추가
+         1. board_detail.html 삭제 버튼 추가
+         2. ~~BoardRepository 에 삭제처리 로직 추가 필요없음~~
+         3. BoardService 에 삭제처리 로직 추가
+         4. BoardController 에 삭제처리 GetMapping 추가
+
+3. 댓글에 대한 수정, 삭제
+
+   - 게시판과 동일하게 작성하면 됨
+
+4. 좋아요 기능 추가
+
+   1. Board Entity에 `Set<Member> like` 속성 추가
+   2. board_detail.html 좋아요 버튼 추가
+   3. BoardService 에 like 관련 메서드 추가
+   4. BoardController 에서 /board/like/{bno} GetMapping 추가
+   5. Reply Entity에 `Set<Member> like` 속성 추가
+   6. board_detail.html 댓글 부분에 좋아요 버튼 추가
+   7. ReplyService 에 답변 가져오기 메서드 추가
+   8. ReplyService 에 like 관련 메서드 추가
+   9. ReplyController 에서 /reply/like/{rno} GetMapping 추가
+
+5. 커스텀 에러페이지 처리
+
+   1. application.properties 에서 Whitelabel Error 설정 해제
+   2. templates/error/500.html 생성
+   3. 템플릿 사이트
+      - https://freefrontend.com/html-404-templates/
+      - https://freefrontend.com/html-500-templates/
+
+6. 웹 html 에디터 적용
+
+   1. HTML 에디터 종류
+      - https://ckeditor.com/ckeditor-5/ : 전세계에서 가장 유명한 무요 웹에디터
+      - https://alex-d.github.io/Trumbowyg/ : jQuery가 필요한 간단한 무료 웹에디터
+      - https://summernote.org/ : 정말 간단한 웹에디터
+      - https://simplemde.com/ : 마크다운만 사용하는 웹에디터
+   2. Trumbow 적용
+
+      1. jQuary CDN 적용
+      2. layout.html에 trumbowyg 관련 css, js 링크 추가
+      3. board_create.html에 content textarea와 관련된 스크립트, 작성
+      4. 추가 플러그인 js 링크 추가
+
+      <img src="./image/sb0017.png" width="600">
+
+7. 게시판 검색 기능 추가
+
+   1. `@Query` : DATA JPA Query Annotaion , JPA 상에서 SQL쿼리와 유사한 방식으로 부가적인 기능을 만들고자할 때 사용
+
+8. 나중에 추가해야할 부분
+   1. [ ] 회원가입 후 바로 로그인되는 기능
+   2. [ ] 로그인한 사람 표시기능
+   3. [ ] 테마(라이트, 다크)
+   4. [ ] 파일 업로드
+   5. [ ] 부트스트랩 프리테마로 변경
