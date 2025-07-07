@@ -934,7 +934,11 @@ https://github.com/user-attachments/assets/0dad8dbc-7e27-4662-bbea-1ec6dac33222
 
 7. 게시판 검색 기능 추가
 
-   1. `@Query` : DATA JPA Query Annotaion , JPA 상에서 SQL쿼리와 유사한 방식으로 부가적인 기능을 만들고자할 때 사용
+   1. `@Query` : DATA JPA Query annnotation, JPA 상에서 SQL쿼리와 유사한 방식으로 부가적인 기능을 만들고자할 때 사용. 표준 SQL이 아니라서 DBeaver, MySQL Workbench등에서 사용불가
+   2. BoardRepository 에 JPA Query 어노테이션 사용 메서드 추가
+   3. BoardService 에 getBoardList() 변경
+   4. BoardController 에 getList() 키워드 파라미터 추가
+   5. board_list.html 검색부분 추가
 
 8. 나중에 추가해야할 부분
    1. [ ] 회원가입 후 바로 로그인되는 기능
