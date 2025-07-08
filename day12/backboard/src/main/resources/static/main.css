@@ -1,0 +1,17 @@
+h2 {
+    color: blue;
+}
+
+textarea {
+    width: 98%;
+    background-color: aliceblue;
+}
+
+input {
+    background-color: greenyellow;
+}
+
+.form-signup {
+    /* max-width: 330px; */
+    min-width: 330px;
+}

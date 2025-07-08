@@ -940,9 +940,59 @@ https://github.com/user-attachments/assets/0dad8dbc-7e27-4662-bbea-1ec6dac33222
    4. BoardController 에 getList() 키워드 파라미터 추가
    5. board_list.html 검색부분 추가
 
-8. 나중에 추가해야할 부분
-   1. [ ] 회원가입 후 바로 로그인되는 기능
-   2. [ ] 로그인한 사람 표시기능
-   3. [ ] 테마(라이트, 다크)
-   4. [ ] 파일 업로드
+## 12일차
+
+### 스프링부트 Backboard 프로젝트 (계속)
+
+1. 현재 게시판 검색 중 발생 문제
+
+   - Board의 content 변수(테이블 컬럼), Column(length = 8000) 인 경우
+   - Oracle에서 컬럼 타입이 CLOB(Character Large OBject) 로 생성
+   - CLOB : 최대 2GB 텍스트 데이터 저장 가능. 대용량 저장 가능
+   - 단, WHERE LIKE 문 사용불가
+   - Query annotation 에서 `select distinct` 를 사용하면 컬럼 조회와 충돌 발생
+   - 해결방법
+     1. Oracle Text 사용 : 검색용 인덱스를 추가 생성. JPA Native query로 CONTAINS() 함수 사용
+     2. ElasticSearch : 외부 서비스 사용해서 검색을 최적화. 도커에 엘라스틱서치 설치, 연동
+     3. 검색용 필드 추가 : VARCHAR(4000) 검색용 필드 cnotent_search 컬럼 추가생성. content에서 html 태그 제거, 감색가능 단어만 저장하는 컬럼
+
+2. 게시판 검색 (계속)
+
+   1. BoardRepository findAllByKeyword의 `@Query` 를 편집. reply 제거, distinct 키워드 제거
+   2. 11일차 '게시판 검색 기능 추가'와 동일
+   3. board_list.html 검색부분, form 히든영역, javascript 추가
+
+3. 파일업로드
+
+   1. Board Entity에 파일업로드 관련 변수 -> 컬럼
+   2. BoardController 게시글 저장 메서드에 파일업도르 내용 로직 추가
+   3. BoardService setBoardOne() 메서드 수정
+   4. application.properties 에 파일 업로드 위치 설정 -- TODO
+   5. board_create.html에 파일업로드 입력 + form 태그 enctype 속성 추가
+   6. board_detail.html에 파일다운로드 링크 추가
+   7. BoardController에 파일 다운로드 GetMapping 메서드 추가
+   8. 게시글 수정 시 업로드 관련 처리
+      - BoardForm 클래스에 파일업로드 관련 필드 추가(Board 엔티티와 동일)
+   9. BoardController에 수정관련 GetMapping 메서드에 로직추가
+   10. BoardService putBoardOne() 메서드에 파일관련 파라미터 추가, 로직 수정
+   11. 파일업로드 사이즈 설정
+   12. 파일업로드 시 파일명에 한글이 있으면 문제발생! - 한글을 UTF로 인코딩해서 저장
+
+## 13일차
+
+### 스프링부트 Backboard 프로젝트 (계속)
+
+1. 구글로그인
+
+   1.
+
+2. 나중에 추가해야할 부분
+   1. [x] 회원가입 후 바로 로그인되는 기능
+   2. [x] 로그인한 사람 표시기능
+   3. [ ] 테마(라이트, 다크) - 패스
+   4. [x] 파일 업로드
    5. [ ] 부트스트랩 프리테마로 변경
+   6. [ ] 파일사이즈 초과시 JS로 방지
+   7. [ ] 구글로그인
+   8. [ ] AWS 라이트세일 업로드
+   9. [ ] 게시글에 이미지 추가시 img 태그에 width="100%" 추가작업
