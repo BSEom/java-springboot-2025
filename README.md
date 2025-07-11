@@ -982,11 +982,78 @@ https://github.com/user-attachments/assets/0dad8dbc-7e27-4662-bbea-1ec6dac33222
 
 ### 스프링부트 Backboard 프로젝트 (계속)
 
-1. 구글로그인
+- 시맨틱웹
+  - 웹사이트의 화면 구성을 쉽게 알 수 있도록 특수 태그형태의 기술
+  - 특수태그 : header, main, section, article, aside, footer
 
-   1.
+1. 부트스트랩 프리테마 NiceSchool로 변경
 
-2. 나중에 추가해야할 부분
+   1. 초기 작업
+      1. assets 폴더 복사해오기
+      2. favicon 커스터마이징
+      3. 구글폰트 구성
+      4. 3rd party vendor 라이브러리 css, head내 구성
+      5. 메뉴 부분 header 태그 복사
+      6. main 태그를 th:block과 동일하게 사용 class="main"
+      7. footer 태그 아래는 복사, src 주소 변경
+      8. header > nav 메뉴, 주소 변경
+   2. Index 페이지 관련 이전
+      1. 타임리프 태그 아래에 이전
+         ```html
+         <html layout:decorate="~{layout}">
+           <div layout:fragment="content">
+             <!-- 여기에 복사 -->
+           </div>
+         </html>
+         ```
+      2. 이미지, 동영상 경로 일치
+
+2. 전체 메뉴 링크 관련된 페이지 작업
+
+   1. 404.html
+   2. IntroController 클래스 생성, /intro/about GetMapping메서드 작성
+   3. templates/intro/about.html 생성
+   4. 동일하게 페이지 옮기기
+
+## 14일차
+
+### 스프링부트 Backboard 프로젝트 (계속)
+
+1. 부트스트랩 프리테마 NiceSchool로 변경
+
+   1. 버튼 CSS 변경
+   2. `th:style="|background-image: url('@{/img/education/showcase-1.webp}')|"` 오류해결
+   3. About DB 연동
+
+      1. 전체 내용 Entity
+      2. 역사 리스트용 Entity
+      3. AboutRepository
+      4. AboutService
+      5. IntroController를 수정
+      6. about.html 타임리프와 연동
+
+   4. 관리자(사용자)가 쉽게 데이터를 입력할 수 있는 화면 개발
+      1. layout.html 에 관리자 메뉴 추가
+      2. AdminController 생성 @GetMapping("/manage") 메서드 생성
+      3. /admin/manage.html을 board_detail.html 입력화면 작업
+      4. AdminController @PostMapping("/about") 메서드 생성
+      5. History 관련 리스트 및 입력화면 html 추가
+      6. AdminController @PostMapping("/history/{id}") 메서드 생성
+      7. HistoryRepository, HistoryService 생성 작성
+
+## 15일차
+
+### 스프링부트 Backboard 프로젝트(계속)
+
+1. 부트스트랩 프리테마 NiceSchool로 변경
+
+   1. 관리자 화면 history 수정 부분 완료
+
+2. AWS Lightsale로 업로드
+
+   1. Oracle DB 구축 -> H2
+
+3. 나중에 추가해야할 부분
    1. [x] 회원가입 후 바로 로그인되는 기능
    2. [x] 로그인한 사람 표시기능
    3. [ ] 테마(라이트, 다크) - 패스
