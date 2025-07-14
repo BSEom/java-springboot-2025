@@ -1190,15 +1190,115 @@ https://github.com/user-attachments/assets/0dad8dbc-7e27-4662-bbea-1ec6dac33222
 
    1. admin/manage, intro/about 발생하는 내부서버(500) 오류 확인 수정
 
-4. 나중에 추가해야할 부분
+## 16일차
 
-   1. [x] 회원가입 후 바로 로그인되는 기능
-   2. [x] 로그인한 사람 표시기능
-   3. [x] 파일 업로드
-   4. [x] 부트스트랩 프리테마 NiceSchool로 변경
-   5. [ ] 파일사이즈 초과시 JS로 방지
-   6. [ ] 구글로그인
-   7. [x] AWS 라이트세일 업로드
-   8. [ ] 게시글에 이미지 추가시 img 태그에 width="100%" 추가작업
-   9. [ ] 사용자 정보에 Role 추가
-   10. [ ] Contact로 메일보내기
+### 스프링부트 Backboard 프로젝트 (계속)
+
+1.  사용자 역할(Role) 추가
+
+    1. Member Entity에 MemberRole 추가
+    2. MemberService setMember() 에 컬럼값 입력 로직 추가
+    3. 권한이 필요한 페이지 컨트롤러 메서드에 preAuthorize 어노테이션 사용
+    4. MemberSecuritySerivce 에 로그인후 권한부여 로직 수정
+
+    ```java
+    if (member.getRole().equals(MemberRole.ADMIN)) {
+       authorities.add(new SimpleGrantedAuthority(MemberRole.ADMIN.getValue())); // ROLE_ADMIN
+    } else {
+       authorities.add(new SimpleGrantedAuthority(MemberRole.USER.getValue())); // ROLE_USER
+    }
+    ```
+
+2.  소셜로그인 OAuth2(Open Authorization 2.0)
+
+    1.  의존성 추가
+
+        ```gradle
+        implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+        ```
+
+    2.  SecurityConfig에 oauth2Login 설정
+    3.  Google OAuth2 신청 : https://console.cloud.google.com/
+        1. 새 프로잭트 : 프로젝트 이름, 결제 계정 옵션, 조직 없음 > 만들기
+        2. API 및 서비스
+           1. OAuth 동의화면
+           2. 시작하기
+           3. 앱 이름 입력, 사용자 지원 이메일 본인 메일 선택 > 다음
+           4. 대상 외부 선택 > 다음
+           5. OAuth 클라이언트 만들기 버튼 활성화
+        3. OAuth 클라이언트 ID 만들기
+           1. 애플리케이션 유형 웹 애플리케이션 선택
+           2. 이름은 옵션
+           3. `승인된 리디렉션 URI` : 제일 중요!!!
+              - +URI 추가 버튼 클릭
+              - http://localhost:18120/login/oauth2/code/google
+              - 만들기 클릭
+           4. 데이터 엑세스
+              - 범위 추가 또는 삭제
+              - .../auth/userinfo.email, .../auth/userinfo.profile, openid 선택, 업데이트
+              - Save 버튼 클릭
+           5. Cloude 개요 > 대시보드 > API 개요 이동
+              - 사용자 인증 정보
+              - 구글 클라이언트ID 복사
+              - 클라이언트 보안 비밀번호 Add Secret, 복사
+           6. 대상
+              - 테스트 사용자 등록
+              - 배포시 앱 게시를 눌러야
+    4.  application.properties 구글 설정 추가
+    5.  CustomOAuth2UserService 클래서 작성 loadUser() 오버라이드 메서드 작성
+        - registrationid를 가져오는 부분까지 우선 작성
+    6.  dto.OAuth2Response 인터페이스 생성
+    7.  dto.GoogleResponse, NaverResponse 클래스를 따로 생성
+
+            ```json
+            // 구글데이터
+            {
+               "resultcode": "00",
+               "message": "success",
+               "email" : "test@gmail.com",
+               "profile" : "...."
+               // ...
+            }
+
+            // 네이버데이터
+            {
+               "resultcode": "00",
+               "message": "success",
+               "response": {
+                  "email" : "test@naver.com",
+                  "nickname" : "Blah~~~",
+                  ///.. 생략
+                  "birthday" : "10-01"
+               }
+            }
+            ```
+
+    8.  CustomOAuth2UserService 아래부분 완성
+    9.  SecurityConfig에 CustomOAuth2UserService 를 추가
+    10. /member_signin.html 소셜로그인 버튼 추가
+
+    11. CustomOAuth2UserService oAuth2Reponse 이후 작업 진행
+    12. CustomOAuth2UserService oAuth2Response 이후 Member 저장로직 추가
+    13. dto.MemberDto 생성
+    14. CustomOAuth2UserService Member 저장로직 이후 로그인 세션에 넣을 객체 생성
+    15. dto.CustomOAuth2User 클래스 생성
+    16. CustomOAuth2UserService MemberDto 리턴부분 추가
+    17. CustomOAuth2User에 UserDetails 인터페이스 추가, 구현안된 메서드 추가 구현
+
+3.  나중에 추가해야할 부분
+
+    1.  [x] 회원가입 후 바로 로그인되는 기능
+    2.  [x] 로그인한 사람 표시기능
+    3.  [x] 파일 업로드
+    4.  [x] 부트스트랩 프리테마 NiceSchool로 변경
+    5.  [ ] 파일사이즈 초과시 JS로 방지
+    6.  [x] 구글로그인
+    7.  [x] AWS 라이트세일 업로드
+    8.  [ ] 게시글에 이미지 추가시 img 태그에 width="100%" 추가작업
+    9.  [x] 사용자 정보에 Role 추가
+    10. [ ] Contact로 메일보내기
+    11. [ ] 공공포털 API
+
+```
+
+```
